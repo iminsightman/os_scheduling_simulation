@@ -75,11 +75,18 @@ class Scheduler(ABC):
             self.release_resources(self.running)
             self.move_from_running_to_finished()
     
+    def check_waiting(self):
+        for task in self.waiting:
+            if self.check_resources_satisfied(task):
+                # move to the head of queue for preventing starvation
+                self.move_from_waiting_to_ready(task, -1)
+    
     def run(self):
         while self.running or self.waiting or self.ready:
             print(self)
             self.cpu_tick()
             # schedule
+            self.check_waiting()
             self.schedule()
 
     @abstractmethod
@@ -111,3 +118,24 @@ class FCFS(Scheduler):
                 break
             else:
                 self.move_from_ready_to_waiting(task)
+
+
+class SJF(Scheduler):
+    def __init__(self, resources):
+        super().__init__(resources)
+    
+    def schedule(self):
+        if self.running is not None:
+            # CPU is occupied
+            return
+        while self.ready:
+            # Find and dispatch a task
+            task = min(self.ready, key=lambda x: x.duration)
+            if self.check_resources_satisfied(task):
+                self.assign_resources(task)
+                self.move_from_ready_to_running(task)
+                break
+            else:
+                self.move_from_ready_to_waiting(task)
+
+
