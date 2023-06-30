@@ -139,3 +139,30 @@ class SJF(Scheduler):
                 self.move_from_ready_to_waiting(task)
 
 
+class RR(Scheduler):
+    def __init__(self, resources, quantum):
+        super().__init__(resources)
+        self.q = quantum
+        self.t = 0
+    
+    def schedule(self):
+        if self.t % self.q == 0 or self.running is None:
+            # preempt if needed
+            if self.running is not None:
+                self.move_from_running_to_ready()
+            else:
+                # reset time counter, a task has finished faster than quantum
+                self.t = 0
+            while self.ready:
+                # Find and dispatch a task
+                task = self.ready[-1]
+                if task.holding:
+                    self.move_from_ready_to_running(task)
+                    break
+                elif self.check_resources_satisfied(task):
+                    self.assign_resources(task)
+                    self.move_from_ready_to_running(task)
+                    break
+                else:
+                    self.move_from_ready_to_waiting(task)
+        self.t += 1
