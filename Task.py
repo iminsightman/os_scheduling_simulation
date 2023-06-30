@@ -11,8 +11,22 @@ class Task:
         self.state = 'Ready'
         self.remaining = self.duration
     
+    def tick(self):
+        if self.state == 'Running' and self.remaining > 0:
+            self.remaining -= 1
+    
+    def set_state(self, state: str):
+        assert state in ['Ready', 'Waiting', 'Running', 'Finished']
+        self.state = state
+    
     def is_done(self):
         return self.remaining == 0
+
+    def __repr__(self) -> str:
+        return self.name
+    
+    def __str__(self) -> str:
+        return self.__repr__()
 
 
 class Z(Task):
