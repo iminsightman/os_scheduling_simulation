@@ -1,0 +1,364 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Readme</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="os-2nd-project---scheduler-simulation">OS 2nd Project - Scheduler Simulation</h1>
+<p><strong>Mahdi Nasehiyan</strong>, Spring of 2023<br>
+This documentation is a brief overview of my implementation for the 2nd project of the Operating Systems course, Which is a simulation for CPU scheduler. The project simulates the following 4 scheduling algorithms:</p>
+<ul>
+<li>First-comes-first-served (FCFS)</li>
+<li>Shortest-job-first (SJF) (Non-preemptive)</li>
+<li>Round-Robin</li>
+<li>Highest-response-ratio-next (HRRN)</li>
+</ul>
+<h1 id="files">Files</h1>
+<p>The project consist of 3 python files:</p>
+<ul>
+<li><strong><a href="http://Task.py">Task.py</a></strong>: Includes the base class for Task, and the 3 sub-classes for each task type X, Y, and Z</li>
+<li><strong><a href="http://Scheduler.py">Scheduler.py</a></strong>: Includes the base class for Scheduler and one sub-class per each scheduling algorithm</li>
+<li><strong><a href="http://main.py">main.py</a></strong>: Driver script<br>
+Besides the codebase, there is a sample input for the driver script (<strong>in.txt</strong>) and its corresponding output (<strong>out.txt</strong>).</li>
+</ul>
+<h1 id="classes">Classes</h1>
+<p>Below is the class hierarchy of the project:</p>
+<pre class=" language-mermaid"><svg id="mermaid-svg-meGkTfy7CS8halO0" width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="159.42501831054688" style="max-width: 598.5750122070312px;" viewBox="9.5367431640625e-7 0 598.5750122070312 159.42501831054688"><style>#mermaid-svg-meGkTfy7CS8halO0{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#000000;}#mermaid-svg-meGkTfy7CS8halO0 .error-icon{fill:#552222;}#mermaid-svg-meGkTfy7CS8halO0 .error-text{fill:#552222;stroke:#552222;}#mermaid-svg-meGkTfy7CS8halO0 .edge-thickness-normal{stroke-width:2px;}#mermaid-svg-meGkTfy7CS8halO0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-meGkTfy7CS8halO0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-meGkTfy7CS8halO0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-meGkTfy7CS8halO0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-meGkTfy7CS8halO0 .marker{fill:#666;stroke:#666;}#mermaid-svg-meGkTfy7CS8halO0 .marker.cross{stroke:#666;}#mermaid-svg-meGkTfy7CS8halO0 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-svg-meGkTfy7CS8halO0 .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#000000;}#mermaid-svg-meGkTfy7CS8halO0 .cluster-label text{fill:#333;}#mermaid-svg-meGkTfy7CS8halO0 .cluster-label span{color:#333;}#mermaid-svg-meGkTfy7CS8halO0 .label text,#mermaid-svg-meGkTfy7CS8halO0 span{fill:#000000;color:#000000;}#mermaid-svg-meGkTfy7CS8halO0 .node rect,#mermaid-svg-meGkTfy7CS8halO0 .node circle,#mermaid-svg-meGkTfy7CS8halO0 .node ellipse,#mermaid-svg-meGkTfy7CS8halO0 .node polygon,#mermaid-svg-meGkTfy7CS8halO0 .node path{fill:#eee;stroke:#999;stroke-width:1px;}#mermaid-svg-meGkTfy7CS8halO0 .node .label{text-align:center;}#mermaid-svg-meGkTfy7CS8halO0 .node.clickable{cursor:pointer;}#mermaid-svg-meGkTfy7CS8halO0 .arrowheadPath{fill:#333333;}#mermaid-svg-meGkTfy7CS8halO0 .edgePath .path{stroke:#666;stroke-width:1.5px;}#mermaid-svg-meGkTfy7CS8halO0 .flowchart-link{stroke:#666;fill:none;}#mermaid-svg-meGkTfy7CS8halO0 .edgeLabel{background-color:white;text-align:center;}#mermaid-svg-meGkTfy7CS8halO0 .edgeLabel rect{opacity:0.5;background-color:white;fill:white;}#mermaid-svg-meGkTfy7CS8halO0 .cluster rect{fill:hsl(210,66.6666666667%,95%);stroke:#26a;stroke-width:1px;}#mermaid-svg-meGkTfy7CS8halO0 .cluster text{fill:#333;}#mermaid-svg-meGkTfy7CS8halO0 .cluster span{color:#333;}#mermaid-svg-meGkTfy7CS8halO0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:12px;background:hsl(-160,0%,93.3333333333%);border:1px solid #26a;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-meGkTfy7CS8halO0:root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}#mermaid-svg-meGkTfy7CS8halO0 flowchart{fill:apa;}</style><g><g class="output"><g class="clusters"></g><g class="edgePaths"><g class="edgePath LS-Task LE-X" id="L-Task-X" style="opacity: 1;"><path class="path" d="M76.35000038146973,46.7317255393212L22.456250190734863,79.7125015258789L22.456250190734863,104.7125015258789" marker-end="url(https://stackedit.io/app#arrowhead695)" style="fill:none"></path><defs><marker id="arrowhead695" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath LS-Task LE-Y" id="L-Task-Y" style="opacity: 1;"><path class="path" d="M101.47500038146973,54.712501525878906L101.47500038146973,79.7125015258789L101.47500038146973,104.7125015258789" marker-end="url(https://stackedit.io/app#arrowhead696)" style="fill:none"></path><defs><marker id="arrowhead696" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath LS-Task LE-Z" id="L-Task-Z" style="opacity: 1;"><path class="path" d="M126.60000038146973,46.741460740542664L180.44375038146973,79.7125015258789L180.44375038146973,104.7125015258789" marker-end="url(https://stackedit.io/app#arrowhead697)" style="fill:none"></path><defs><marker id="arrowhead697" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath LS-Scheduler LE-FCFS" id="L-Scheduler-FCFS" style="opacity: 1;"><path class="path" d="M371.15625,46.4862744959441L271.8812503814697,79.7125015258789L271.8812503814697,104.7125015258789" marker-end="url(https://stackedit.io/app#arrowhead698)" style="fill:none"></path><defs><marker id="arrowhead698" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath LS-Scheduler LE-SJF" id="L-Scheduler-SJF" style="opacity: 1;"><path class="path" d="M394.34356567735136,54.712501525878906L370.7749996185303,79.7125015258789L370.7749996185303,104.7125015258789" marker-end="url(https://stackedit.io/app#arrowhead699)" style="fill:none"></path><defs><marker id="arrowhead699" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath LS-Scheduler LE-RR" id="L-Scheduler-RR" style="opacity: 1;"><path class="path" d="M438.38143279676973,54.712501525878906L461.9499988555908,79.7125015258789L461.9499988555908,104.7125015258789" marker-end="url(https://stackedit.io/app#arrowhead700)" style="fill:none"></path><defs><marker id="arrowhead700" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath LS-Scheduler LE-HRRN" id="L-Scheduler-HRRN" style="opacity: 1;"><path class="path" d="M461.5687484741211,46.4784245183315L560.9187488555908,79.7125015258789L560.9187488555908,104.7125015258789" marker-end="url(https://stackedit.io/app#arrowhead701)" style="fill:none"></path><defs><marker id="arrowhead701" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g></g><g class="edgeLabels"><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><rect rx="0" ry="0" width="0" height="0"></rect><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span id="L-L-Task-X" class="edgeLabel L-LS-Task' L-LE-X"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><rect rx="0" ry="0" width="0" height="0"></rect><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span id="L-L-Task-Y" class="edgeLabel L-LS-Task' L-LE-Y"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><rect rx="0" ry="0" width="0" height="0"></rect><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span id="L-L-Task-Z" class="edgeLabel L-LS-Task' L-LE-Z"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><rect rx="0" ry="0" width="0" height="0"></rect><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span id="L-L-Scheduler-FCFS" class="edgeLabel L-LS-Scheduler' L-LE-FCFS"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><rect rx="0" ry="0" width="0" height="0"></rect><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span id="L-L-Scheduler-SJF" class="edgeLabel L-LS-Scheduler' L-LE-SJF"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><rect rx="0" ry="0" width="0" height="0"></rect><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span id="L-L-Scheduler-RR" class="edgeLabel L-LS-Scheduler' L-LE-RR"></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><rect rx="0" ry="0" width="0" height="0"></rect><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span id="L-L-Scheduler-HRRN" class="edgeLabel L-LS-Scheduler' L-LE-HRRN"></span></div></foreignObject></g></g></g><g class="nodes"><g class="node default" id="flowchart-Task-3778" transform="translate(101.47500038146973,31.356250762939453)" style="opacity: 1;"><rect rx="0" ry="0" x="-25.125" y="-23.356249809265137" width="50.25" height="46.71249961853027" class="label-container"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-15.125,-13.356249809265137)"><foreignObject width="30.25" height="26.712499618530273"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Task</div></foreignObject></g></g></g><g class="node default" id="flowchart-X-3779" transform="translate(22.456250190734863,128.06875228881836)" style="opacity: 1;"><rect rx="0" ry="0" x="-14.456250190734863" y="-23.356249809265137" width="28.912500381469727" height="46.71249961853027" class="label-container"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-4.456250190734863,-13.356249809265137)"><foreignObject width="8.912500381469727" height="26.712499618530273"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">X</div></foreignObject></g></g></g><g class="node default" id="flowchart-Y-3781" transform="translate(101.47500038146973,128.06875228881836)" style="opacity: 1;"><rect rx="0" ry="0" x="-14.5625" y="-23.356249809265137" width="29.125" height="46.71249961853027" class="label-container"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-4.5625,-13.356249809265137)"><foreignObject width="9.125" height="26.712499618530273"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Y</div></foreignObject></g></g></g><g class="node default" id="flowchart-Z-3783" transform="translate(180.44375038146973,128.06875228881836)" style="opacity: 1;"><rect rx="0" ry="0" x="-14.40625" y="-23.356249809265137" width="28.8125" height="46.71249961853027" class="label-container"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-4.40625,-13.356249809265137)"><foreignObject width="8.8125" height="26.712499618530273"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Z</div></foreignObject></g></g></g><g class="node default" id="flowchart-Scheduler-3784" transform="translate(416.36249923706055,31.356250762939453)" style="opacity: 1;"><rect rx="0" ry="0" x="-45.20624923706055" y="-23.356249809265137" width="90.4124984741211" height="46.71249961853027" class="label-container"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-35.20624923706055,-13.356249809265137)"><foreignObject width="70.4124984741211" height="26.712499618530273"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Scheduler</div></foreignObject></g></g></g><g class="node default" id="flowchart-FCFS-3785" transform="translate(271.8812503814697,128.06875228881836)" style="opacity: 1;"><rect rx="0" ry="0" x="-27.03125" y="-23.356249809265137" width="54.0625" height="46.71249961853027" class="label-container"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-17.03125,-13.356249809265137)"><foreignObject width="34.0625" height="26.712499618530273"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">FCFS</div></foreignObject></g></g></g><g class="node default" id="flowchart-SJF-3787" transform="translate(370.7749996185303,128.06875228881836)" style="opacity: 1;"><rect rx="0" ry="0" x="-21.862500190734863" y="-23.356249809265137" width="43.72500038146973" height="46.71249961853027" class="label-container"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-11.862500190734863,-13.356249809265137)"><foreignObject width="23.725000381469727" height="26.712499618530273"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">SJF</div></foreignObject></g></g></g><g class="node default" id="flowchart-RR-3789" transform="translate(461.9499988555908,128.06875228881836)" style="opacity: 1;"><rect rx="0" ry="0" x="-19.3125" y="-23.356249809265137" width="38.625" height="46.71249961853027" class="label-container"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-9.3125,-13.356249809265137)"><foreignObject width="18.625" height="26.712499618530273"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">RR</div></foreignObject></g></g></g><g class="node default" id="flowchart-HRRN-3791" transform="translate(560.9187488555908,128.06875228881836)" style="opacity: 1;"><rect rx="0" ry="0" x="-29.65625" y="-23.356249809265137" width="59.3125" height="46.71249961853027" class="label-container"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-19.65625,-13.356249809265137)"><foreignObject width="39.3125" height="26.712499618530273"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">HRRN</div></foreignObject></g></g></g></g></g></g></svg></pre>
+<h2 id="task">Task</h2>
+<p>The Task class acts mostly as a data structure for keeping data about each task, and additionally it provides a few functionalities for better integration with the Scheduler instances. Task is not an abstract method and can be directly instantiated.<br>
+Here are some of the key attributes that each Task instance hold:</p>
+<ul>
+<li>A name</li>
+<li>Duration of the task (time units)</li>
+<li>Resource needs (how many of each resource type)</li>
+<li>Resources currently holding</li>
+<li>Task priority</li>
+<li>Task state (Ready/Waiting/Running/Finished)</li>
+<li>Remaining time of execution</li>
+<li>Wait time (Used by HRRN algorithm)</li>
+</ul>
+<p>The most important method implemented in this class is <code>tick()</code>, which is called by the scheduler after each time unit is passed. The Task instance will decrease the remaining time of execution by 1 if <code>state=='Running'</code>, otherwise it will increase the wait time.</p>
+<h2 id="scheduler">Scheduler</h2>
+<p>An scheduler without an scheduling algorithm is not much of a practical entity. Hence the Scheduler class is an abstract base class providing all the needed infrastructure and functionalities needed for scheduling algorithms to work. The Scheduler class has only one abstract method: <code>schedule()</code>, Which is where the scheduling algorithm will be implemented.<br>
+Below is everything the Scheduler class provides, explained very briefly:</p>
+<ul>
+<li>Naively simulate the existence of a single CPU core.</li>
+<li>Naively simulate the time unit of that CPU core, and keep track of the time.</li>
+<li>Implement a <strong>ready</strong> queue, a <strong>waiting</strong> queue, and a <strong>running</strong> slot.</li>
+<li>Provide a mechanism for moving tasks between queues or dispatching them to the CPU.</li>
+<li>Keep track of how much of each is resource type is available.</li>
+<li>Assign resources to tasks, release resources from tasks.</li>
+</ul>
+<p>The ready and waiting queues are implemented as pure python lists:</p>
+<pre><code>self.ready: List[Task] = []
+</code></pre>
+<p>The ready queue is not implemented as a priority queue; purely by personal preference. Each scheduling algorithm will have full control over the queue.</p>
+<blockquote>
+<p>The Scheduler class provides a queue, how and based on what priority<br>
+tasks are chosen from this queue is completely in the hands of<br>
+scheduling algorithms.</p>
+</blockquote>
+<p>Once an algorithm is implemented in a subclass of Scheduler,  instantiated, and provided with a bunch of Task instances, everything can be started with just one call to the <code>run()</code> method. This method is the main event loop firing every procedure with our desired sequence:</p>
+<ol>
+<li>Calling <code>tick()</code> on every Task instance, informing them that one time unit has passed (<code>one time unit = one cycle of the main event loop</code>).</li>
+<li>Terminated the running task, if finished, and releasing resources.</li>
+<li>Calling a method for controlling the waiting queue (And handling the movements between the two queues if needed).</li>
+<li>Calling the scheduling algorithm.</li>
+</ol>
+<p>The <code>run()</code> method will go on as long as there are <strong>unfinished</strong> tasks,.</p>
+<h3 id="a-limitation">A Limitation</h3>
+<p>Before we go on and investigate more into the project, lets talk about an important concept in this project. The project description explicitly mentions:</p>
+<ul>
+<li>We have a single CPU core.</li>
+<li>We have a finite amount of each resource types.</li>
+<li>A waiting queue plus additional mechanisms for moving tasks between the two queues must be implemented.</li>
+</ul>
+<p>The waiting queue’s role comes into play when a task is about to be dispatched, but the resources needed by it are not available. The task is placed inside the waiting queue until the resources are available and it will be moved back into the ready queue.</p>
+<blockquote>
+<p>This scenario can only happen when the resources needed by a task are being<br>
+held by another task! Since we only have one CPU core, all resources will be free upon dispatching a task.</p>
+</blockquote>
+<p>Here is an example of running the SJF algorithm:</p>
+<pre><code>R1:2    R2:2    R3:2
+Ready Queue: [T3,T2,T1]
+Waiting Queue: []
+Running: None
+--------------------------------------------------
+R1:2    R2:1    R3:1
+Ready Queue: [T3,T1]
+Waiting Queue: []
+Running: T2
+--------------------------------------------------
+R1:1    R2:1    R3:2
+Ready Queue: [T3]
+Waiting Queue: []
+Running: T1
+--------------------------------------------------
+R1:1    R2:1    R3:2
+Ready Queue: [T3]
+Waiting Queue: []
+Running: T1
+--------------------------------------------------
+R1:1    R2:1    R3:2
+Ready Queue: [T3]
+Waiting Queue: []
+Running: T1
+--------------------------------------------------
+R1:2    R2:1    R3:1
+Ready Queue: []
+Waiting Queue: []
+Running: T3
+--------------------------------------------------
+R1:2    R2:1    R3:1
+Ready Queue: []
+Waiting Queue: []
+Running: T3
+--------------------------------------------------
+R1:2    R2:1    R3:1
+Ready Queue: []
+Waiting Queue: []
+Running: T3
+--------------------------------------------------
+R1:2    R2:1    R3:1
+Ready Queue: []
+Waiting Queue: []
+Running: T3
+</code></pre>
+<p>Pay attention to the waiting queue throughout the whole execution, <strong>it’s always empty</strong>.<br>
+In order to make the waiting queue a little more useful than this, I have slightly modified the Round-Robin algorithm which I will discuss later.</p>
+<h2 id="fcfs">FCFS</h2>
+<p>First-come-first-server is the simplest scheduling algorithm that can be implemented using a simple queue (which we already have). It is non-preemptive, and tasks will run until completion after they are dispatched.<br>
+In order to implement the FCFS algorithm we only need to subclass the Scheduler class and implement the <code>schedule()</code> method with the following pseudo-code:</p>
+<pre><code>if cpu is free and ready is not empty{
+    dispatch ready.pop()
+}
+</code></pre>
+<p>Based on the conclusion we made in the last section about how the waiting queue will remain empty, there is actually no need to check for resource satisfaction and use the waiting queue for FCFS. However, under the impression that this project will be extended to a multi-core or multi CPU setup, I have implemented every mechanism needed for handling resource allocation for FCFS, and all the other algorithms.</p>
+<pre><code>def  schedule(self):
+    if  self.running  is  not  None:
+	    # CPU is occupied
+	    return
+    while  self.ready:
+	    # Find and dispatch a task
+	    task = self.ready[-1]
+	    if  self.check_resources_satisfied(task):
+		    self.assign_resources(task)
+		    self.move_from_ready_to_running(task)
+		    break
+	    else:
+		    self.move_from_ready_to_waiting(task)
+</code></pre>
+<h2 id="sjf">SJF</h2>
+<p>Shortest-job-first algorithm is a very close sibling of the FCFS algorithm, with the only one difference between them being:</p>
+<blockquote>
+<p>The ready queue is now a priority queue with priorities being the duration of tasks.</p>
+</blockquote>
+<p>One important note here, is that the SJF subclass extends the functionality of the ready queue by implementing a priority system for extracting tasks. Essentially, it adds a layer of abstraction on top of the underlying queue, allowing it to behave differently and prioritize Tasks based on their duration.</p>
+<pre><code>task = min(self.ready, key=lambda  x: x.duration)
+</code></pre>
+<h2 id="round-robin">Round-Robin</h2>
+<p>The RR algorithm is pretty straight forward, you have a queue, and a time quantum <code>q</code>, pop from the queue, give the task <code>q</code> time units to execute, push it back to the queue, and repeat.<br>
+But there is a question that needs a clear answer, <strong>When do we release resources assigned to tasks?</strong> Upon exiting the CPU or upon completion? This is what will happen in each scenario:</p>
+<h3 id="releasing-resources-upon-exiting-cpu">1. Releasing resources upon exiting CPU</h3>
+<p>Again we have a single CPU, and tasks hold resources only when they are running.</p>
+<ol>
+<li>Tasks is given some resources.</li>
+<li>Task enters CPU.</li>
+<li>Executes.</li>
+<li>Resources are released.</li>
+<li>Task exits CPU.</li>
+</ol>
+<blockquote>
+<p>Resources are held by at most one task at any time. <strong>Waiting queue will be empty at all times</strong>.</p>
+</blockquote>
+<h3 id="releasing-resources-upon-task-completion">2. Releasing resources upon task completion</h3>
+<p>Once a set of resources are assigned to a task, the task will hold the resources until completion of execution, regardless of it being in CPU or not.</p>
+<ol>
+<li>Task is given resources upon first dispatch.</li>
+<li>Task might enter CPU and get preempted multiple times.</li>
+<li>Resources are released upon completion of task.</li>
+</ol>
+<blockquote>
+<p>Resources can be held by tasks inside the ready queue! Upon dispatching a task, the needed resources for it might not be available (held by another task outside of CPU), and <strong>we can move the task into the waiting queue</strong>.</p>
+</blockquote>
+<p>Since the second scenario will make some use out of the waiting queue, I have chosen to implement the Round-Robin algorithm this way. Although the original Round-Robin algorithm is mostly based on the first scenario.<br>
+Here is a sample output from the RR algorithm that you see the engagement of waiting queue:</p>
+<pre><code>R1:2	R2:1	R3:2
+Ready Queue: [T6,T5,T4,T3,T2,T1]
+Waiting Queue: []
+Running: None
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: [T6,T5,T4,T3,T2]
+Waiting Queue: []
+Running: T1
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: [T6,T5,T4,T3,T2]
+Waiting Queue: []
+Running: T1
+--------------------------------------------------
+R1:0	R2:0	R3:1
+Ready Queue: [T1,T6,T5]
+Waiting Queue: [T3,T2]
+Running: T4
+--------------------------------------------------
+R1:0	R2:0	R3:1
+Ready Queue: [T1,T6,T5]
+Waiting Queue: [T3,T2]
+Running: T4
+--------------------------------------------------
+R1:0	R2:0	R3:1
+Ready Queue: [T4]
+Waiting Queue: [T6,T5,T3,T2]
+Running: T1
+--------------------------------------------------
+R1:0	R2:0	R3:1
+Ready Queue: [T4]
+Waiting Queue: [T6,T5,T3,T2]
+Running: T1
+--------------------------------------------------
+R1:0	R2:0	R3:1
+Ready Queue: [T1]
+Waiting Queue: [T6,T5,T3,T2]
+Running: T4
+--------------------------------------------------
+R1:0	R2:0	R3:1
+Ready Queue: [T1]
+Waiting Queue: [T6,T5,T3,T2]
+Running: T4
+--------------------------------------------------
+R1:0	R2:0	R3:1
+Ready Queue: [T4]
+Waiting Queue: [T6,T5,T3,T2]
+Running: T1
+--------------------------------------------------
+R1:1	R2:1	R3:1
+Ready Queue: [T6,T3]
+Waiting Queue: [T5,T2]
+Running: T4
+--------------------------------------------------
+R1:1	R2:1	R3:1
+Ready Queue: [T6,T5,T3]
+Waiting Queue: [T2]
+Running: T4
+--------------------------------------------------
+R1:2	R2:0	R3:1
+Ready Queue: [T6,T5,T2]
+Waiting Queue: []
+Running: T3
+--------------------------------------------------
+R1:2	R2:0	R3:1
+Ready Queue: [T6,T5,T2]
+Waiting Queue: []
+Running: T3
+--------------------------------------------------
+R1:1	R2:0	R3:0
+Ready Queue: [T3,T6]
+Waiting Queue: [T2]
+Running: T5
+--------------------------------------------------
+R1:1	R2:0	R3:0
+Ready Queue: [T3,T6]
+Waiting Queue: [T2]
+Running: T5
+--------------------------------------------------
+R1:1	R2:0	R3:0
+Ready Queue: [T5]
+Waiting Queue: [T6,T2]
+Running: T3
+--------------------------------------------------
+R1:1	R2:1	R3:1
+Ready Queue: [T6]
+Waiting Queue: [T2]
+Running: T5
+--------------------------------------------------
+R1:1	R2:1	R3:1
+Ready Queue: [T2,T6]
+Waiting Queue: []
+Running: T5
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: [T2]
+Waiting Queue: []
+Running: T6
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: [T2]
+Waiting Queue: []
+Running: T6
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: []
+Waiting Queue: []
+Running: T2
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: []
+Waiting Queue: []
+Running: T2
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: []
+Waiting Queue: []
+Running: T2
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: []
+Waiting Queue: []
+Running: T2
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: []
+Waiting Queue: []
+Running: T2
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: []
+Waiting Queue: []
+Running: T2
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: []
+Waiting Queue: []
+Running: T2
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: []
+Waiting Queue: []
+Running: T2
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: []
+Waiting Queue: []
+Running: T2
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: []
+Waiting Queue: []
+Running: T2
+</code></pre>
+<h3 id="moving-from-waiting-to-ready">Moving from waiting to ready</h3>
+<p>A very simple strategy is implemented for the moving the waiting tasks to the ready queue. It prioritizes the tasks in the waiting queue by their priority value (<code>{1, 2, 3}</code>, 1 being the highest priority).<br>
+Suppose we have <code>n</code> tasks inside the waiting queue, and <code>k &lt; n</code> tasks can be moved to the ready queue (their resources are satisfied). We will push the <code>k</code> tasks into the ready queue based on their priority value, meaning, the task(s) with the highest priority (1), will be pushed into the ready queue first.</p>
+<h2 id="hrrn">HRRN</h2>
+<p>Highest-response-ration-next is an algorithm very similar to SJF. The difference is that HRNN uses a metric called the response-ration as the priority value. This metric tries to account for waiting time of tasks and prevent starvation.</p>
+<blockquote>
+<p>An important thing to note here, is that we create and add all the<br>
+tasks into the scheduler at the same time. Hence the waiting time of<br>
+all tasks will be the equal at all time. <strong>HRRN will act exactly like SJF in this scenario</strong>.</p>
+</blockquote>
+<p>In order to fix this issue, tasks must be dynamically added at different timestamps in runtime (different arrival times results different waiting times). This issue is not fixed in the current project.<br>
+The response-ratio is calculated using a method implemented in the Task class:</p>
+<pre><code>def  get_response_ratio(self):
+    return (self.duration+self.wait_time)/self.duration
+</code></pre>
+</div>
+</body>
+
+</html>

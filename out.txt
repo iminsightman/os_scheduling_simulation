@@ -1,0 +1,155 @@
+R1:2	R2:1	R3:2
+Ready Queue: [T6,T5,T4,T3,T2,T1]
+Waiting Queue: []
+Running: None
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: [T6,T5,T4,T3,T2]
+Waiting Queue: []
+Running: T1
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: [T6,T5,T4,T3,T2]
+Waiting Queue: []
+Running: T1
+--------------------------------------------------
+R1:0	R2:0	R3:1
+Ready Queue: [T1,T6,T5]
+Waiting Queue: [T3,T2]
+Running: T4
+--------------------------------------------------
+R1:0	R2:0	R3:1
+Ready Queue: [T1,T6,T5]
+Waiting Queue: [T3,T2]
+Running: T4
+--------------------------------------------------
+R1:0	R2:0	R3:1
+Ready Queue: [T4]
+Waiting Queue: [T6,T5,T3,T2]
+Running: T1
+--------------------------------------------------
+R1:0	R2:0	R3:1
+Ready Queue: [T4]
+Waiting Queue: [T6,T5,T3,T2]
+Running: T1
+--------------------------------------------------
+R1:0	R2:0	R3:1
+Ready Queue: [T1]
+Waiting Queue: [T6,T5,T3,T2]
+Running: T4
+--------------------------------------------------
+R1:0	R2:0	R3:1
+Ready Queue: [T1]
+Waiting Queue: [T6,T5,T3,T2]
+Running: T4
+--------------------------------------------------
+R1:0	R2:0	R3:1
+Ready Queue: [T4]
+Waiting Queue: [T6,T5,T3,T2]
+Running: T1
+--------------------------------------------------
+R1:1	R2:1	R3:1
+Ready Queue: [T6,T3]
+Waiting Queue: [T5,T2]
+Running: T4
+--------------------------------------------------
+R1:1	R2:1	R3:1
+Ready Queue: [T6,T5,T3]
+Waiting Queue: [T2]
+Running: T4
+--------------------------------------------------
+R1:2	R2:0	R3:1
+Ready Queue: [T6,T5,T2]
+Waiting Queue: []
+Running: T3
+--------------------------------------------------
+R1:2	R2:0	R3:1
+Ready Queue: [T6,T5,T2]
+Waiting Queue: []
+Running: T3
+--------------------------------------------------
+R1:1	R2:0	R3:0
+Ready Queue: [T3,T6]
+Waiting Queue: [T2]
+Running: T5
+--------------------------------------------------
+R1:1	R2:0	R3:0
+Ready Queue: [T3,T6]
+Waiting Queue: [T2]
+Running: T5
+--------------------------------------------------
+R1:1	R2:0	R3:0
+Ready Queue: [T5]
+Waiting Queue: [T6,T2]
+Running: T3
+--------------------------------------------------
+R1:1	R2:1	R3:1
+Ready Queue: [T6]
+Waiting Queue: [T2]
+Running: T5
+--------------------------------------------------
+R1:1	R2:1	R3:1
+Ready Queue: [T2,T6]
+Waiting Queue: []
+Running: T5
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: [T2]
+Waiting Queue: []
+Running: T6
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: [T2]
+Waiting Queue: []
+Running: T6
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: []
+Waiting Queue: []
+Running: T2
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: []
+Waiting Queue: []
+Running: T2
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: []
+Waiting Queue: []
+Running: T2
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: []
+Waiting Queue: []
+Running: T2
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: []
+Waiting Queue: []
+Running: T2
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: []
+Waiting Queue: []
+Running: T2
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: []
+Waiting Queue: []
+Running: T2
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: []
+Waiting Queue: []
+Running: T2
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: []
+Waiting Queue: []
+Running: T2
+--------------------------------------------------
+R1:1	R2:0	R3:2
+Ready Queue: []
+Waiting Queue: []
+Running: T2
+--------------------------------------------------
