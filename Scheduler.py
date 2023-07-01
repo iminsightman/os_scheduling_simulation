@@ -68,6 +68,10 @@ class Scheduler(ABC):
     
     # A naive simulation of CPU
     def cpu_tick(self):
+        for task in self.ready:
+            task.tick()
+        for task in self.waiting:
+            task.tick()
         if self.running is None:
             return
         self.running.tick()
@@ -76,10 +80,11 @@ class Scheduler(ABC):
             self.move_from_running_to_finished()
     
     def check_waiting(self):
-        for task in self.waiting:
-            if self.check_resources_satisfied(task):
-                # move to the head of queue for preventing starvation
-                self.move_from_waiting_to_ready(task, -1)
+        # This strategy does not affect SJF and HRRN
+        to_be_moved = [task for task in self.waiting if self.check_resources_satisfied(task)]
+        to_be_moved = sorted(to_be_moved, key=lambda x: x.priority) # highest priority is at first
+        for task in to_be_moved:
+            self.move_from_waiting_to_ready(task, 0)
     
     def run(self):
         while self.running or self.waiting or self.ready:
@@ -166,3 +171,22 @@ class RR(Scheduler):
                 else:
                     self.move_from_ready_to_waiting(task)
         self.t += 1
+
+
+class HRRN(Scheduler):
+    def __init__(self, resources):
+        super().__init__(resources)
+    
+    def schedule(self):
+        if self.running is not None:
+            # CPU is occupied
+            return
+        while self.ready:
+            # Find and dispatch a task
+            task = max(self.ready, key=lambda x: x.get_response_ratio())
+            if self.check_resources_satisfied(task):
+                self.assign_resources(task)
+                self.move_from_ready_to_running(task)
+                break
+            else:
+                self.move_from_ready_to_waiting(task)

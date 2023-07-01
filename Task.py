@@ -10,10 +10,16 @@ class Task:
         self.holding: Dict[str, int] = {}
         self.state = 'Ready'
         self.remaining = self.duration
+        self.wait_time = 0
     
     def tick(self):
         if self.state == 'Running' and self.remaining > 0:
             self.remaining -= 1
+        else:
+            self.wait_time += 1
+    
+    def get_response_ratio(self):
+        return (self.duration+self.wait_time)/self.duration
     
     def set_state(self, state: str):
         assert state in ['Ready', 'Waiting', 'Running', 'Finished']
