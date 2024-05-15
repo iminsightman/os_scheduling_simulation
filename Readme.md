@@ -1,6 +1,5 @@
-﻿# OS 2nd Project - Scheduler Simulation
-**Mahdi Nasehiyan**, Spring of 2023
-This documentation is a brief overview of my implementation for the 2nd project of the Operating Systems course, Which is a simulation for CPU scheduler. The project simulates the following 4 scheduling algorithms:
+﻿# Simple Simulation and Comparison of Operating System Job Scheduling Algorithms
+The project was implemented as part of the operating systems university course. The code simulates the following 4 scheduling algorithms:
 
  - First-comes-first-served (FCFS)
  - Shortest-job-first (SJF) (Non-preemptive)
